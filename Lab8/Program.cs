@@ -14,8 +14,10 @@ namespace Lab8
             int validNumber;
             string answer;
             int validResult;
-            int [] AtBatResults=null;
+            int[] AtBatResults = null;
             double sluggingAverage;
+            decimal atBatAverage = 0.000m;
+            decimal battingAverage = 0.000m;
 
             do
             {
@@ -27,12 +29,11 @@ namespace Lab8
                     Console.WriteLine("Please try again:");
                     strTimesAtBat = Console.ReadLine();
                 }
-               
                 Console.WriteLine("0 = out, 1 = single, 2 = double, 3 = triple, 4 = home run");
 
                 for (int i = 0; i <= (validNumber - 1); i++)
                 {
-                    Console.WriteLine("Result for at-bat " + (i + 1) + ":");
+                    Console.Write("Result for at-bat " + (i + 1) + ": ");
                     string strResult = Console.ReadLine();
 
                     while (!validAtBat(strResult, out validResult))
@@ -40,25 +41,18 @@ namespace Lab8
                         Console.WriteLine("Please try again:");
                         strResult = Console.ReadLine();
                     }
-
-                    AtBatResults = new int [validNumber];
-                    AtBatResults[i] = validResult;                  
+                    AtBatResults = new int[validNumber];
+                    AtBatResults[i] = validResult;
                 }
+                foreach (int item in AtBatResults)
+                {
+                    atBatAverage = (atBatAverage + item);
+                }
+                battingAverage = (atBatAverage / validNumber);
+                sluggingAverage = (AtBatResults.Average());
 
-               sluggingAverage = (AtBatResults.Average());
-
-                //foreach (int n = 0; n)
-                //    {
-
-                //}
-
-                //battingAverage = (validResult!=0 / validNumber);
-                //sluggingPercentage = (validResults+ / validNumber);
-                //Console.WriteLine("Batting average: " + battingAverage));
-                //calculate batting average & calculate slugging percentage)
+                Console.WriteLine("The batting average is: " + battingAverage);
                 Console.WriteLine("The slugging average is: " + sluggingAverage);
-                Console.WriteLine("The batting average is:");
-
                 Console.WriteLine("Another batter? (y/n)");
                 answer = Console.ReadLine();
             }
@@ -77,7 +71,6 @@ namespace Lab8
                 return false;
             }
         }
-        
         static bool validAtBat(string result, out int validResult)//check for valid number for at bat
         {
             bool isValid = int.TryParse(result, out validResult);
