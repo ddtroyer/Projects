@@ -10,27 +10,27 @@ namespace Lab8
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Welcome to Batting Average Calculator!");
+            Console.WriteLine("Welcome to Batting Average Calculator!" + Environment.NewLine);
             int validNumber;
             string answer;
             int validResult;
             int[] AtBatResults = null;
-            double sluggingAverage;
+            decimal sluggingAverage = 0.000m; ;
             decimal atBatAverage = 0.000m;
             decimal battingAverage = 0.000m;
 
             do
             {
-                Console.WriteLine("Enter number of times at bat:");
-                string strTimesAtBat = Console.ReadLine();
+                Console.Write("Enter number of times at bat: ");
+                string strTimesAtBat = Console.ReadLine() + Environment.NewLine;
 
                 while (!validTimesAtBat(strTimesAtBat, out validNumber))
                 {
-                    Console.WriteLine("Please try again:");
+                    Console.WriteLine("Please try again: ");
                     strTimesAtBat = Console.ReadLine();
                 }
                 Console.WriteLine("0 = out, 1 = single, 2 = double, 3 = triple, 4 = home run");
-
+                AtBatResults = new int[validNumber];
                 for (int i = 0; i <= (validNumber - 1); i++)
                 {
                     Console.Write("Result for at-bat " + (i + 1) + ": ");
@@ -41,18 +41,18 @@ namespace Lab8
                         Console.WriteLine("Please try again:");
                         strResult = Console.ReadLine();
                     }
-                    AtBatResults = new int[validNumber];
                     AtBatResults[i] = validResult;
                 }
                 foreach (int item in AtBatResults)
                 {
-                    atBatAverage = (atBatAverage + item);
+                    atBatAverage = (atBatAverage + (item));
                 }
                 battingAverage = (atBatAverage / validNumber);
-                sluggingAverage = (AtBatResults.Average());
+                sluggingAverage = Convert.ToDecimal(AtBatResults.Average());
 
                 Console.WriteLine("The batting average is: " + battingAverage);
                 Console.WriteLine("The slugging average is: " + sluggingAverage);
+                //slugging average not showing all decimals
                 Console.WriteLine("Another batter? (y/n)");
                 answer = Console.ReadLine();
             }
