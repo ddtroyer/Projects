@@ -12,8 +12,8 @@ namespace Lab8
         {
             Console.WriteLine("Welcome to Batting Average Calculator!" + Environment.NewLine);
             int validNumber;
-            string answer;
-            int validResult;
+            string answer = null;
+            int validResult = 0;
             int[] AtBatResults = null;
             decimal sluggingAverage = 0.000m; ;
             decimal atBatAverage = 0.000m;
@@ -45,16 +45,25 @@ namespace Lab8
                 }
                 foreach (int item in AtBatResults)
                 {
-                    atBatAverage = (atBatAverage + (item));
+                    if (item > 0)
+                    {
+                        atBatAverage = (atBatAverage + 1);
+                    }
                 }
                 battingAverage = (atBatAverage / validNumber);
                 sluggingAverage = Convert.ToDecimal(AtBatResults.Average());
+                var slugAverage = string.Format("{0:0.000}", sluggingAverage);
 
                 Console.WriteLine("The batting average is: " + battingAverage);
-                Console.WriteLine("The slugging average is: " + sluggingAverage);
-                //slugging average not showing all decimals
+                Console.WriteLine("The slugging average is: " + slugAverage);
                 Console.WriteLine("Another batter? (y/n)");
                 answer = Console.ReadLine();
+
+                while (!yesOrNo(answer))
+                {
+                    Console.WriteLine("Please try again:");
+                    answer = Console.ReadLine();
+                }
             }
             while (answer == "y");
         }
@@ -76,6 +85,17 @@ namespace Lab8
             bool isValid = int.TryParse(result, out validResult);
 
             if (isValid && (validResult >= 0) && (validResult <= 4))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        static bool yesOrNo(string answer)
+        {
+            if (answer.ToLower() == "y" || answer.ToLower() == "n")
             {
                 return true;
             }
